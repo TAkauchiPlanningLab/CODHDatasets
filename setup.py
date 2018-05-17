@@ -28,7 +28,7 @@ readme = open('README.rst').read()
 VERSION = find_version('codh', '__init__.py')
 
 requirements = [
-    'scikit-image',
+    'pillow',
     'six',
     'torch'
 ]
