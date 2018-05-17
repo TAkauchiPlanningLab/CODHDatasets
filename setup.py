@@ -25,7 +25,7 @@ def find_version(*file_paths):
 
 readme = open('README.rst').read()
 
-VERSION = find_version('datasets', '__init__.py')
+VERSION = find_version('codh', '__init__.py')
 
 requirements = [
     'scikit-image',
@@ -37,7 +37,7 @@ setup(
     # Metadata
     name='CODHDatasets',
     version=VERSION,
-    author='TAkauchi Planning Lab team',
+    author='Yuhshi Takauchi, Kei Umeda, Akihiko Tomokane',
     author_email='takauchikiken@gmail.com',
     url='https://github.com/TAkauchiPlanningLab/CODHDatasets',
     description='Pre-modern Japanese Texts datasets',

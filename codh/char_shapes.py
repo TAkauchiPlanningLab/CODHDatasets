@@ -1,7 +1,7 @@
 from __future__ import print_function
 import os
 import os.path
-from skimage import io
+from PIL import Image
 import errno
 import hashlib
 
@@ -18,9 +18,6 @@ class CharShapes(data.Dataset):
         transform (callable, optional): A function/transform that
             takes in an PIL image
             and returns a transformed version. E.g, ``transforms.RandomCrop``
-        target_transform (callable, optional): A function/transform
-            that takes in the
-            target and transforms it.
         download (bool, optional): If true, downloads the dataset
             from the internet and
             puts it in root directory.
@@ -66,11 +63,9 @@ class CharShapes(data.Dataset):
     }
     raw_folder = 'raw'
 
-    def __init__(self, root, transform=None, target_transform=None,
-                 download=False):
+    def __init__(self, root, transform=None, download=False):
         self.root = os.path.expanduser(root)
         self.transform = transform
-        self.target_transform = target_transform
 
         if download:
             self.download()
@@ -83,11 +78,12 @@ class CharShapes(data.Dataset):
 
     def __getitem__(self, idx):
         img_info = self.img_list[idx]
-        image = io.imread(img_info['image_path'])
-        sample = {'image': image, 'code_point': img_info['code_point']}
+        img = Image.open(img_info['image_path'])
+
+        sample = {'image': img, 'code_point': img_info['code_point']}
 
         if self.transform:
-            sample = self.transform(sample)
+            sample['image'] = self.transform(sample['image'])
 
         return sample
 
